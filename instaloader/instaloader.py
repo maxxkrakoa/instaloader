@@ -191,6 +191,9 @@ class Instaloader:
         # Used to keep state in commit mode
         self._committed = None  # type: Optional[bool]
 
+        # Used to keep track of whether or not anything new was downloaded
+        self.new_items_downloaded = False
+
     @contextmanager
     def anonymous_copy(self):
         """Yield an anonymous, otherwise equally-configured copy of an Instaloader instance; Then copy its error log."""
@@ -529,6 +532,10 @@ class Instaloader:
             self.save_metadata_json(filename, post)
 
         self.context.log()
+
+        # keep track of whether or not any new items have been downloaded
+        self.new_items_downloaded |= downloaded
+
         return downloaded
 
     @_requires_login

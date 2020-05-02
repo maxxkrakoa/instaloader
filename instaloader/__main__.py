@@ -425,6 +425,10 @@ def main():
               post_filter_str=args.post_filter,
               storyitem_filter_str=args.storyitem_filter)
         loader.close()
+
+        if loader.new_items_downloaded:
+            print("New items downloaded")
+            sys.exit(2)
     except InstaloaderException as err:
         raise SystemExit("Fatal error: %s" % err)
 
