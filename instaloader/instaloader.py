@@ -632,6 +632,10 @@ class Instaloader:
         if self.save_metadata is not False:
             self.save_metadata_json(filename, item)
         self.context.log()
+
+        # keep track of whether or not any new items have been downloaded
+        self.new_items_downloaded |= downloaded
+        
         return downloaded
 
     @_requires_login
